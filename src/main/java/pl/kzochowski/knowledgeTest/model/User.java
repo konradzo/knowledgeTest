@@ -29,7 +29,6 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createAt;
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscription subscription;

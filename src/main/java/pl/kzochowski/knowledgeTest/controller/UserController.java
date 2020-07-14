@@ -1,11 +1,12 @@
 package pl.kzochowski.knowledgeTest.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.User;
 import pl.kzochowski.knowledgeTest.service.UserService;
+
+import pl.kzochowski.knowledgeTest.service.UserService.IncorrectEmailException;
 
 import javax.validation.Valid;
 
@@ -25,11 +26,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     User createUser(@Valid @RequestBody User newUser) {
         if (incorrectEmailAddress(newUser))
-            throw new UserService.IncorrectEmailException(newUser);
+            throw new IncorrectEmailException(newUser);
         return userService.createUser(newUser);
     }
 
     private boolean incorrectEmailAddress(User user) {
-        return emailValidator.isValid(user.getEmail());
+        return !emailValidator.isValid(user.getEmail());
     }
 }
