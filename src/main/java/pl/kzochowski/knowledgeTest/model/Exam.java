@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -10,10 +11,10 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotBlank
     private String header;
 
-    @NotNull
+    @NotBlank
     private String description;
 
     @NotNull

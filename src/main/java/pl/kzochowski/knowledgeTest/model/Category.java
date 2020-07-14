@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -10,10 +11,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -21,5 +22,4 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<ExamApproach> examApproachList;
-
 }

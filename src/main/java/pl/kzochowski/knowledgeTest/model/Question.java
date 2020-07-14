@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -14,18 +15,18 @@ public class Question {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @NotNull
+    @NotBlank
     private String firstAnswer;
 
-    @NotNull
+    @NotBlank
     private String secondAnswer;
 
-    @NotNull
+    @NotBlank
     private String thirdAnswer;
 
-    @NotNull
+    @NotBlank
     private String fourthAnswer;
 
-    @NotNull
+    @NotBlank
     private String correctAnswer;
 }
