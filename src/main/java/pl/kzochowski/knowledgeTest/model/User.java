@@ -1,10 +1,15 @@
 package pl.kzochowski.knowledgeTest.model;
 
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -20,6 +25,9 @@ public class User {
 
     @NotBlank
     private String email;
+
+    @CreationTimestamp
+    private LocalDateTime createAt;
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
