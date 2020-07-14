@@ -24,7 +24,6 @@ public class User {
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscription subscription;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ExamApproach> examApproachList;
-
 }

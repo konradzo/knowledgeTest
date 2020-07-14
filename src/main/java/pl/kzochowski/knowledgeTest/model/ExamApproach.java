@@ -10,11 +10,12 @@ public class ExamApproach {
     private Integer id;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @NotNull
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 }

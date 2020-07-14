@@ -13,7 +13,7 @@ public class Subscription {
     private Integer id;
 
     @NotNull
-    @OneToOne(mappedBy = "subscription")
+    @OneToOne(mappedBy = "subscription", cascade = CascadeType.ALL)
     private User user;
 
     @NotNull

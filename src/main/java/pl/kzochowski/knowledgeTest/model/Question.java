@@ -9,14 +9,22 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //todo cascading
     @NotNull
     @ManyToOne
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    //todo how to handle it?
-//    private Map<String,String> answers;
+    @NotNull
+    private String firstAnswer;
+
+    @NotNull
+    private String secondAnswer;
+
+    @NotNull
+    private String thirdAnswer;
+
+    @NotNull
+    private String fourthAnswer;
 
     @NotNull
     private String correctAnswer;

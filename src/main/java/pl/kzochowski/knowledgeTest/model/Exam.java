@@ -17,7 +17,7 @@ public class Exam {
     private String description;
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
