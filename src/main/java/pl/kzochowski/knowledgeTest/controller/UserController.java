@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.User;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
+
 
     public UserController(UserService userService) {
         this.userService = userService;
