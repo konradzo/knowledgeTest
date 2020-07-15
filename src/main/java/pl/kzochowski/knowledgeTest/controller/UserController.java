@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.User;
 import pl.kzochowski.knowledgeTest.service.UserService;
-
 import pl.kzochowski.knowledgeTest.service.UserService.IncorrectEmailException;
 
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
     private final EmailValidator emailValidator;
-
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,7 +25,8 @@ public class UserController {
     User createUser(@Valid @RequestBody User newUser) {
         if (incorrectEmailAddress(newUser))
             throw new IncorrectEmailException(newUser);
-        return userService.createUser(newUser);
+        User user = userService.createUser(newUser);
+        return user;
     }
 
     private boolean incorrectEmailAddress(User user) {
