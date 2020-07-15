@@ -24,7 +24,6 @@ public class Subscription {
     @JsonBackReference
     private User user;
 
-    //@NotNull
     @CreationTimestamp
     private LocalDateTime activeFrom;
 
