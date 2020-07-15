@@ -25,7 +25,6 @@ public class UserController {
     User createUser(@Valid @RequestBody User newUser) {
         if (incorrectEmailAddress(newUser))
             throw new IncorrectEmailException(newUser);
-        //todo handle UserAlreadyExistsException
         return userService.createUser(newUser);
     }
 
