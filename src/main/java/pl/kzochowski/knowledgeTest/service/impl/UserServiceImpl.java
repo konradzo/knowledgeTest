@@ -8,6 +8,7 @@ import pl.kzochowski.knowledgeTest.repository.UserRepository;
 import pl.kzochowski.knowledgeTest.service.UserService;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -18,9 +19,11 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    //todo dao??
     @Override
     public User createUser(User user) {
+        if (checkIfUserAlreadyExists(user.getEmail()))
+            throw new UserAlreadyExistsException(user);
+
         Subscription subscription = Subscription.builder()
                 .user(user)
                 .activeUntil(LocalDateTime.now().plusYears(1))
@@ -30,5 +33,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         log.info("New user created. Email: {}, creation date {}", user.getEmail(), user.getCreateAt());
         return user;
+    }
+
+    private boolean checkIfUserAlreadyExists(String email) {
+        Optional<User> tempUser = userRepository.findByEmail(email);
+        if (tempUser.isPresent()) {
+            log.info("User with email {} already exists!", tempUser.get().getEmail());
+            return true;
+        }
+        return false;
     }
 }
