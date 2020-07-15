@@ -25,8 +25,7 @@ public class UserController {
     User createUser(@Valid @RequestBody User newUser) {
         if (incorrectEmailAddress(newUser))
             throw new IncorrectEmailException(newUser);
-        User user = userService.createUser(newUser);
-        return user;
+        return userService.createUser(newUser);
     }
 
     private boolean incorrectEmailAddress(User user) {
