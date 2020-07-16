@@ -11,6 +11,8 @@ import java.util.Properties;
 @Service
 public class MailSenderService {
 
+    //todo refactor, create application email, knowledgeTest@gmail.com, properties add to application.yml
+
     public boolean sendNewAccountEmail(String email) {
         Session session = createGmailSession();
         String mailSubject = "New account registration";
