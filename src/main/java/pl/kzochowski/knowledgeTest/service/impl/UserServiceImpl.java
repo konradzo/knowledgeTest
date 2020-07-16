@@ -14,9 +14,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final MailSenderService mailSenderService;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, MailSenderService mailSenderService) {
         this.userRepository = userRepository;
+        this.mailSenderService = mailSenderService;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
         user.setSubscription(subscription);
 
         userRepository.save(user);
+        mailSenderService.sendNewAccountEmail(user.getEmail());
         log.info("New user created. Email: {}, creation date {}", user.getEmail(), user.getCreateAt());
         return user;
     }
