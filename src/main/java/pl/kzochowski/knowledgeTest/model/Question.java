@@ -3,6 +3,7 @@ package pl.kzochowski.knowledgeTest.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -15,17 +16,9 @@ public class Question {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @NotBlank
-    private String firstAnswer;
-
-    @NotBlank
-    private String secondAnswer;
-
-    @NotBlank
-    private String thirdAnswer;
-
-    @NotBlank
-    private String fourthAnswer;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "possible_answers", joinColumns = @JoinColumn(name = "question_id"))
+    private List<String> answers;
 
     @NotBlank
     private String correctAnswer;
