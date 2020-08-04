@@ -28,6 +28,8 @@ public class UserController {
         return userService.createUser(newUser);
     }
 
+    //todo deleting user, listing users
+
     private boolean incorrectEmailAddress(User user) {
         return !emailValidator.isValid(user.getEmail());
     }

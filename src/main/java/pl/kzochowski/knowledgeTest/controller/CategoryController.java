@@ -27,4 +27,5 @@ public class CategoryController {
         return categoryService.listAllCategories();
     }
 
+    //todo deleting category
 }
