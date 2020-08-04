@@ -7,6 +7,7 @@ import pl.kzochowski.knowledgeTest.model.Category;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +19,12 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     Category createCategory(@RequestBody @Valid Category category) {
         return categoryService.createCategory(category);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    List<Category> listCategories(){
+        return categoryService.listAllCategories();
     }
 
 }

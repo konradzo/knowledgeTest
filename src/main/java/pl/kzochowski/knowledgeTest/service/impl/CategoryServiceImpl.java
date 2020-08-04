@@ -7,13 +7,13 @@ import pl.kzochowski.knowledgeTest.model.Category;
 import pl.kzochowski.knowledgeTest.repository.CategoryRepository;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -25,5 +25,10 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
         log.info("Category {} created", category.getName());
         return category;
+    }
+
+    @Override
+    public List<Category> listAllCategories() {
+        return categoryRepository.findAll();
     }
 }
