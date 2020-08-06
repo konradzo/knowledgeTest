@@ -28,9 +28,19 @@ public class UserController {
         return userService.createUser(newUser);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    User fetchUser(@RequestBody UserJson json) {
+        return userService.fetchUserByEmail(json.email);
+    }
+
     //todo deleting user, listing users
 
     private boolean incorrectEmailAddress(User user) {
         return !emailValidator.isValid(user.getEmail());
+    }
+
+    static class UserJson {
+        String email;
     }
 }
