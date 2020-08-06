@@ -8,6 +8,8 @@ public interface UserService {
 
     User fetchUserByEmail(String email);
 
+    User removeUser(String email);
+
     class IncorrectEmailException extends IllegalArgumentException {
         public IncorrectEmailException(User user) {
             super(String.format("Incorrect email %s for user %s %s", user.getEmail(), user.getName(), user.getSurname()));

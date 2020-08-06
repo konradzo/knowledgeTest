@@ -34,6 +34,12 @@ public class UserController {
         return userService.fetchUserByEmail(json.email);
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    User removeUser(@RequestBody UserJson json) {
+        return userService.removeUser(json.email);
+    }
+
     //todo deleting user, listing users
 
     private boolean incorrectEmailAddress(User user) {

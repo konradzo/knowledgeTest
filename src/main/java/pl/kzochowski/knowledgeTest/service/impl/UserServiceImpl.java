@@ -47,6 +47,17 @@ public class UserServiceImpl implements UserService {
         return result.get();
     }
 
+    @Override
+    public User removeUser(String email) {
+        Optional<User> result = userRepository.findByEmail(email);
+        if (!result.isPresent())
+            throw new UserDoesNotExistException(email);
+
+        userRepository.deleteByEmail(email);
+        log.info("User {} removed", email);
+        return result.get();
+    }
+
     private boolean checkIfUserAlreadyExists(String email) {
         Optional<User> tempUser = userRepository.findByEmail(email);
         if (tempUser.isPresent()) {
