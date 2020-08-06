@@ -28,6 +28,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category fetchCategoryByName(String categoryName) {
+        Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
+        if (!tempCategory.isPresent())
+            throw new CategoryDoesNotExistException(categoryName);
+
+        log.info("Fetched category: {}", categoryName);
+        return tempCategory.get();
+    }
+
+    @Override
     public Category removeCategory(String categoryName) {
         Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
         if (!tempCategory.isPresent())

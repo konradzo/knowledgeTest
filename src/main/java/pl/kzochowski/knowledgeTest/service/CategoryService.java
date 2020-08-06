@@ -8,6 +8,8 @@ public interface CategoryService {
 
     Category createCategory(Category category);
 
+    Category fetchCategoryByName(String categoryName);
+
     Category removeCategory(String categoryName);
 
     List<Category> listAllCategories();

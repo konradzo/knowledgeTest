@@ -25,6 +25,12 @@ public class CategoryController {
         return categoryService.createCategory(category);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    Category fetchCategory(@RequestBody CategoryJson json) {
+        return categoryService.fetchCategoryByName(json.name);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     CategoryList listCategories() {
@@ -35,7 +41,11 @@ public class CategoryController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    Category removeCategory(String categoryName) {
-        return categoryService.removeCategory(categoryName);
+    Category removeCategory(CategoryJson json) {
+        return categoryService.removeCategory(json.name);
+    }
+
+    static class CategoryJson {
+        String name;
     }
 }
