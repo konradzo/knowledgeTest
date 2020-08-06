@@ -18,9 +18,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        Optional<Category> tempCategory = categoryRepository.findByName(category.getName());
-        if (tempCategory.isPresent())
-            throw new CategoryAlreadyExistsException(category.getName());
+        Optional<Category> result = categoryRepository.findByName(category.getName());
+        result.ifPresent(tempCategory -> {
+            throw new CategoryDoesNotExistException(tempCategory.getName());
+        });
 
         categoryRepository.save(category);
         log.info("Category {} created", category.getName());
@@ -29,27 +30,29 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category fetchCategoryByName(String categoryName) {
-        Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
-        if (!tempCategory.isPresent())
-            throw new CategoryDoesNotExistException(categoryName);
-
+        Category category = checkCategoryExistence(categoryName);
         log.info("Fetched category: {}", categoryName);
-        return tempCategory.get();
+        return category;
     }
 
     @Override
     public Category removeCategory(String categoryName) {
-        Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
-        if (!tempCategory.isPresent())
-            throw new CategoryDoesNotExistException(categoryName);
-
+        Category category = checkCategoryExistence(categoryName);
         categoryRepository.deleteByName(categoryName);
         log.info("Category {} removed", categoryName);
-        return tempCategory.get();
+        return category;
     }
 
     @Override
     public List<Category> listAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    private Category checkCategoryExistence(String categoryName) {
+        Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
+        if (!tempCategory.isPresent())
+            throw new CategoryDoesNotExistException(categoryName);
+
+        return tempCategory.get();
     }
 }
