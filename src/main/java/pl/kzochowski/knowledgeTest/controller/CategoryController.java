@@ -25,10 +25,19 @@ public class CategoryController {
         return categoryService.createCategory(category);
     }
 
-    @PostMapping
+    //todo get by id
+    // todo find by category name - another endpoint?
+
+    @GetMapping("/{categoryName}")
     @ResponseStatus(HttpStatus.OK)
-    Category fetchCategory(@RequestBody CategoryJson json) {
-        return categoryService.fetchCategoryByName(json.name);
+    Category fetchCategory(@PathVariable("categoryName") String categoryName) {
+        return categoryService.fetchCategoryByName(categoryName);
+    }
+
+    @DeleteMapping("/{categoryName}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    Category removeCategory(@PathVariable("categoryName") String categoryName) {
+        return categoryService.removeCategory(categoryName);
     }
 
     @GetMapping
@@ -39,13 +48,4 @@ public class CategoryController {
         return new CategoryList(categories);
     }
 
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    Category removeCategory(CategoryJson json) {
-        return categoryService.removeCategory(json.name);
-    }
-
-    static class CategoryJson {
-        String name;
-    }
 }

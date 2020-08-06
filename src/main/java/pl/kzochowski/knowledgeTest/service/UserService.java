@@ -6,9 +6,9 @@ public interface UserService {
 
     User createUser(User user);
 
-    User fetchUserByEmail(String email);
+    User fetchUserById(Integer id);
 
-    User removeUser(String email);
+    User removeUserById(Integer id);
 
     class IncorrectEmailException extends IllegalArgumentException {
         public IncorrectEmailException(User user) {
@@ -24,8 +24,8 @@ public interface UserService {
     }
 
     class UserDoesNotExistException extends RuntimeException {
-        public UserDoesNotExistException(String email) {
-            super(String.format("User with email %s does not exist!", email));
+        public UserDoesNotExistException(Integer id) {
+            super(String.format("User with id %d does not exist!", id));
         }
     }
 }

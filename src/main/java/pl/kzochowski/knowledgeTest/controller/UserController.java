@@ -28,18 +28,22 @@ public class UserController {
         return userService.createUser(newUser);
     }
 
-    @PostMapping
+    //todo how handle link to suitable user? GetMapping? PostMapping with request Body?
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    User fetchUser(@RequestBody UserJson json) {
-        return userService.fetchUserByEmail(json.email);
+    User fetchUser(@PathVariable("id") Integer id) {
+        return userService.fetchUserById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    User removeUser(@RequestBody UserJson json) {
-        return userService.removeUser(json.email);
+    User removeUser(@PathVariable("id") Integer id) {
+        return userService.removeUserById(id);
     }
 
+
+
+    //todo find user by email
     //todo deleting user, listing users
 
     private boolean incorrectEmailAddress(User user) {

@@ -39,22 +39,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User fetchUserByEmail(String email) {
-        Optional<User> result = userRepository.findByEmail(email);
+    public User fetchUserById(Integer id) {
+        Optional<User> result = userRepository.findById(id);
         if (!result.isPresent())
-            throw new UserDoesNotExistException(email);
+            throw new UserDoesNotExistException(id);
 
         return result.get();
     }
 
     @Override
-    public User removeUser(String email) {
-        Optional<User> result = userRepository.findByEmail(email);
+    public User removeUserById(Integer id) {
+        Optional<User> result = userRepository.findById(id);
         if (!result.isPresent())
-            throw new UserDoesNotExistException(email);
+            throw new UserDoesNotExistException(id);
 
-        userRepository.deleteByEmail(email);
-        log.info("User {} removed", email);
+        userRepository.delete(result.get());
+        log.info("User with id {} removed", id);
         return result.get();
     }
 
