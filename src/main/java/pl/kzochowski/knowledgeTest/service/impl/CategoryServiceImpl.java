@@ -18,13 +18,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        Optional<Category> temp = categoryRepository.findByName(category.getName());
-        if (temp.isPresent())
+        Optional<Category> tempCategory = categoryRepository.findByName(category.getName());
+        if (tempCategory.isPresent())
             throw new CategoryAlreadyExistsException(category.getName());
 
         categoryRepository.save(category);
         log.info("Category {} created", category.getName());
         return category;
+    }
+
+    @Override
+    public Category removeCategory(String categoryName) {
+        Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
+        if (!tempCategory.isPresent())
+            throw new CategoryDoesNotExistException(categoryName);
+
+        categoryRepository.deleteByName(categoryName);
+        log.info("Category {} removed", categoryName);
+        return tempCategory.get();
     }
 
     @Override

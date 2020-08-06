@@ -10,4 +10,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Optional<Category> findByName(String categoryName);
 
     List<Category> findAll();
+
+    void deleteByName(String categoryName);
 }

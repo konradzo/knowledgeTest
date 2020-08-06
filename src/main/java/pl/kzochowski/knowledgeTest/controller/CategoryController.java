@@ -33,5 +33,9 @@ public class CategoryController {
         return new CategoryList(categories);
     }
 
-    //todo deleting category
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    Category removeCategory(String categoryName) {
+        return categoryService.removeCategory(categoryName);
+    }
 }
