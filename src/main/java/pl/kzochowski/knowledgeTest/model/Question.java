@@ -20,6 +20,7 @@ public class Question {
     @CollectionTable(name = "possible_answers", joinColumns = @JoinColumn(name = "question_id"))
     private List<String> answers;
 
+    //todo enum?
     @NotBlank
     private String correctAnswer;
 }
