@@ -29,6 +29,4 @@ public class Subscription {
 
     @NotNull
     private LocalDateTime activeUntil;
-
-
 }
