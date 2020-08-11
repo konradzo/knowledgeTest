@@ -42,7 +42,6 @@ public class UserController {
     }
 
 
-
     //todo find user by email
     //todo deleting user, listing users
 
@@ -50,7 +49,4 @@ public class UserController {
         return !emailValidator.isValid(user.getEmail());
     }
 
-    static class UserJson {
-        String email;
-    }
 }
