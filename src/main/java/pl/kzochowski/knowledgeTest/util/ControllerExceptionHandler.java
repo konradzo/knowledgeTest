@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
+import pl.kzochowski.knowledgeTest.service.SubscriptionService;
 import pl.kzochowski.knowledgeTest.service.UserService;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,12 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<ErrorMessage> userDoesNotExist(UserService.UserDoesNotExistException exception) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), exception.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorMessage> subscriptionDoesNotExist(SubscriptionService.SubscriptionDoesNotExistException exception) {
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_FOUND.value(), exception.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
@@ -41,4 +48,5 @@ public class ControllerExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
 }

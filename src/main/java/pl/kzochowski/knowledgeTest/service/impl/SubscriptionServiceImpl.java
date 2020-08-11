@@ -20,7 +20,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Subscription fetchSubscriptionById(Integer id) {
         Optional<Subscription> result = subscriptionRepository.findById(id);
         if (!result.isPresent())
-            throw new SubscriptionDoesNotExist(id);
+            throw new SubscriptionDoesNotExistException(id);
         return result.get();
     }
 

@@ -12,12 +12,12 @@ public interface SubscriptionService {
 
     List<Subscription> listAllSubscriptions();
 
-    class SubscriptionDoesNotExist extends RuntimeException {
-        public SubscriptionDoesNotExist(Integer id) {
+    class SubscriptionDoesNotExistException extends RuntimeException {
+        public SubscriptionDoesNotExistException(Integer id) {
             super(String.format("Subscription with id %d does not exist", id));
         }
 
-        public SubscriptionDoesNotExist(String email) {
+        public SubscriptionDoesNotExistException(String email) {
             super(String.format("Subscription with email %s does not exist", email));
         }
     }
