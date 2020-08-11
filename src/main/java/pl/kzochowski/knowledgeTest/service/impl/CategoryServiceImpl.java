@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category createCategory(Category category) {
         Optional<Category> result = categoryRepository.findByName(category.getName());
         result.ifPresent(tempCategory -> {
-            throw new CategoryDoesNotExistException(tempCategory.getName());
+            throw new CategoryAlreadyExistsException(tempCategory.getName());
         });
 
         categoryRepository.save(category);
@@ -33,6 +33,15 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = checkCategoryExistence(categoryName);
         log.info("Fetched category: {}", categoryName);
         return category;
+    }
+
+    @Override
+    public Category fetchCategoryById(Integer id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (!category.isPresent())
+            throw new CategoryDoesNotExistException(id);
+        log.info("Fetched category: {}", category.get().getName());
+        return category.get();
     }
 
     @Override

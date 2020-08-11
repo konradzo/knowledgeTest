@@ -17,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
+    // todo find by category name - another endpoint?
+
     private final CategoryService categoryService;
 
     @PostMapping
@@ -25,13 +27,10 @@ public class CategoryController {
         return categoryService.createCategory(category);
     }
 
-    //todo get by id
-    // todo find by category name - another endpoint?
-
-    @GetMapping("/{categoryName}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Category fetchCategory(@PathVariable("categoryName") String categoryName) {
-        return categoryService.fetchCategoryByName(categoryName);
+    Category fetchCategory(@PathVariable Integer id) {
+        return categoryService.fetchCategoryById(id);
     }
 
     @DeleteMapping("/{categoryName}")
@@ -47,5 +46,4 @@ public class CategoryController {
         log.info("Categories list size: {}", categories.size());
         return new CategoryList(categories);
     }
-
 }

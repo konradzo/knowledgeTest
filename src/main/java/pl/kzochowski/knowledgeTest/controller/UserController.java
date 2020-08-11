@@ -12,6 +12,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+    //todo find user by email
+    //todo deleting user by email, listing users
     private final UserService userService;
     private final EmailValidator emailValidator;
 
@@ -28,7 +30,6 @@ public class UserController {
         return userService.createUser(newUser);
     }
 
-    //todo how handle link to suitable user? GetMapping? PostMapping with request Body?
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     User fetchUser(@PathVariable("id") Integer id) {
@@ -41,12 +42,7 @@ public class UserController {
         return userService.removeUserById(id);
     }
 
-
-    //todo find user by email
-    //todo deleting user, listing users
-
     private boolean incorrectEmailAddress(User user) {
         return !emailValidator.isValid(user.getEmail());
     }
-
 }

@@ -10,6 +10,8 @@ public interface CategoryService {
 
     Category fetchCategoryByName(String categoryName);
 
+    Category fetchCategoryById(Integer id);
+
     Category removeCategory(String categoryName);
 
     List<Category> listAllCategories();
@@ -20,9 +22,13 @@ public interface CategoryService {
         }
     }
 
-    class CategoryDoesNotExistException extends RuntimeException{
-        public CategoryDoesNotExistException(String categoryName){
+    class CategoryDoesNotExistException extends RuntimeException {
+        public CategoryDoesNotExistException(String categoryName) {
             super(String.format("Category with name %s does not exist!", categoryName));
+        }
+
+        public CategoryDoesNotExistException(Integer id) {
+            super(String.format("Category with id %d does not exist", id));
         }
     }
 }
