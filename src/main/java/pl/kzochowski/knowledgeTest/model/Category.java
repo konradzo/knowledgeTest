@@ -1,5 +1,7 @@
 package pl.kzochowski.knowledgeTest.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +24,7 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Exam> examList;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

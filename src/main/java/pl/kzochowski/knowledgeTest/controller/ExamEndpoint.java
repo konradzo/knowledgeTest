@@ -1,16 +1,17 @@
 package pl.kzochowski.knowledgeTest.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.Exam;
+import pl.kzochowski.knowledgeTest.model.ExamList;
 import pl.kzochowski.knowledgeTest.service.ExamService;
+import pl.kzochowski.knowledgeTest.util.json.NewExamJson;
 
-import javax.validation.Valid;
+import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/exams")
@@ -18,7 +19,16 @@ public class ExamEndpoint {
     private final ExamService examService;
 
     @PostMapping
-    Exam createExam(@RequestBody @Valid Exam newExam){
-        return examService.addNewExam(newExam);
+    @ResponseStatus(HttpStatus.CREATED)
+    Exam createExam(@RequestBody NewExamJson json) {
+        return examService.addNewExam(json);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    ExamList listExams() {
+        List<Exam> exams = examService.listAllExams();
+        log.info("Exams list size: {}", exams.size());
+        return new ExamList(exams);
     }
 }
