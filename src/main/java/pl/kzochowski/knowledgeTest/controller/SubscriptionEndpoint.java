@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/subscriptions")
-public class SubscriptionController {
+public class SubscriptionEndpoint {
     private final SubscriptionService subscriptionService;
 
     @GetMapping("/{id}")

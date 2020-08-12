@@ -11,13 +11,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserEndpoint {
     //todo find user by email
     //todo deleting user by email, listing users
     private final UserService userService;
     private final EmailValidator emailValidator;
 
-    public UserController(UserService userService) {
+    public UserEndpoint(UserService userService) {
         this.userService = userService;
         this.emailValidator = EmailValidator.getInstance();
     }

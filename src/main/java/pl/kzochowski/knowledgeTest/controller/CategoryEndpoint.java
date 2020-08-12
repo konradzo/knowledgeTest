@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/categories")
-public class CategoryController {
+public class CategoryEndpoint {
     // todo find by category name - another endpoint?
 
     private final CategoryService categoryService;
