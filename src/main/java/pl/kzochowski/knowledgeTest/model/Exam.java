@@ -2,17 +2,16 @@ package pl.kzochowski.knowledgeTest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
+@Data
 @Entity
-@Getter
-@Setter
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

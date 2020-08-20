@@ -1,7 +1,6 @@
 package pl.kzochowski.knowledgeTest.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
