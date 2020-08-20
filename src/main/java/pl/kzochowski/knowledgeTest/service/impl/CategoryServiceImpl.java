@@ -62,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryList searchCategoriesByQuery(String query) {
+        log.info(String.format("Searching categories by query: \"%s\"", query));
         List<Category> categories = categoryRepository.findByNameContainingIgnoreCase(query);
         log.info("Found categories list size: {}", categories.size());
         return new CategoryList(categories.size(), categories);

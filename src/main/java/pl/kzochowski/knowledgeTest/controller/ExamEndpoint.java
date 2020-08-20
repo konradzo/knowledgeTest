@@ -9,8 +9,6 @@ import pl.kzochowski.knowledgeTest.model.ExamList;
 import pl.kzochowski.knowledgeTest.service.ExamService;
 import pl.kzochowski.knowledgeTest.util.json.NewExamJson;
 
-import java.util.List;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +25,6 @@ public class ExamEndpoint {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     ExamList listExams() {
-        List<Exam> exams = examService.listAllExams();
-        log.info("Exams list size: {}", exams.size());
-        return new ExamList(exams);
+        return examService.listAllExams();
     }
 }

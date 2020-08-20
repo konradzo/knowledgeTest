@@ -1,9 +1,11 @@
 package pl.kzochowski.knowledgeTest.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.kzochowski.knowledgeTest.model.Category;
 import pl.kzochowski.knowledgeTest.model.Exam;
+import pl.kzochowski.knowledgeTest.model.ExamList;
 import pl.kzochowski.knowledgeTest.repository.CategoryRepository;
 import pl.kzochowski.knowledgeTest.repository.ExamRepository;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
@@ -13,6 +15,7 @@ import pl.kzochowski.knowledgeTest.util.json.NewExamJson;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
@@ -22,19 +25,26 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Exam addNewExam(NewExamJson json) {
         Optional<Category> category = categoryRepository.findById(json.getCategoryId());
-        if (!category.isPresent())
+        if (!category.isPresent()){
             throw new CategoryService.CategoryDoesNotExistException(json.getCategoryId());
+        }
 
-        Exam exam = new Exam();
-        exam.setCategory(category.get());
-        exam.setHeader(json.getHeader());
-        exam.setDescription(json.getDescription());
+        Optional<Exam> exam = examRepository.findByHeaderAndCategory_Id(json.getHeader(), json.getCategoryId());
+        if (exam.isPresent()) {
+            throw new ExamAlreadyExistsException(json.getHeader());
+        }
 
-        return examRepository.save(exam);
+        Exam newExam = new Exam();
+        newExam.setCategory(category.get());
+        newExam.setHeader(json.getHeader());
+        newExam.setDescription(json.getDescription());
+        return examRepository.save(newExam);
     }
 
     @Override
-    public List<Exam> listAllExams() {
-        return examRepository.findAll();
+    public ExamList listAllExams() {
+        List<Exam> exams = examRepository.findAll();
+        log.info("Found exam list size: {}", exams.size());
+        return new ExamList(exams.size(), exams);
     }
 }
