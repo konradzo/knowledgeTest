@@ -4,15 +4,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 public class CategoryList {
-    private List<Category> categories;
-
-    public CategoryList(){}
-
-    public CategoryList(List<Category> categories) {
-        this.categories = categories;
-    }
-
+    private final List<Category> categories;
 }

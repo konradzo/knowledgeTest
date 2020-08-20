@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class SubscriptionList {
-    private List<Subscription> subscriptions;
+    private final List<Subscription> subscriptions;
 }

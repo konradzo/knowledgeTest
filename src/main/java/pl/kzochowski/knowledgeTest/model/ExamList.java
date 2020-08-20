@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class ExamList {
-    private List<Exam> exams;
+    private final List<Exam> exams;
 }
