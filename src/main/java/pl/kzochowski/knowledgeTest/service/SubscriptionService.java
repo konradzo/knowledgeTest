@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.service;
 
 import pl.kzochowski.knowledgeTest.model.Subscription;
+import pl.kzochowski.knowledgeTest.model.SubscriptionList;
 
 import java.util.List;
 
@@ -8,9 +9,9 @@ public interface SubscriptionService {
 
     Subscription fetchSubscriptionById(Integer id);
 
-    Subscription fetchSubscriptionByEmail(String email);
+    SubscriptionList fetchSubscriptionByEmail(String email);
 
-    List<Subscription> listAllSubscriptions();
+    SubscriptionList listAllSubscriptions();
 
     class SubscriptionDoesNotExistException extends RuntimeException {
         public SubscriptionDoesNotExistException(Integer id) {

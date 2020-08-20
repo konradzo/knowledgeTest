@@ -1,4 +1,4 @@
-package pl.kzochowski.knowledgeTest.controller;
+package pl.kzochowski.knowledgeTest.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

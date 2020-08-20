@@ -1,4 +1,4 @@
-package pl.kzochowski.knowledgeTest.controller;
+package pl.kzochowski.knowledgeTest.api;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.http.HttpStatus;

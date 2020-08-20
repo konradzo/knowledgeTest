@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.kzochowski.knowledgeTest.model.Subscription;
+import pl.kzochowski.knowledgeTest.model.SubscriptionList;
 import pl.kzochowski.knowledgeTest.repository.SubscriptionRepository;
 import pl.kzochowski.knowledgeTest.service.SubscriptionService;
 
@@ -21,17 +22,22 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Optional<Subscription> result = subscriptionRepository.findById(id);
         if (!result.isPresent())
             throw new SubscriptionDoesNotExistException(id);
+        log.info("Fetched subscription: {}", result.get().getUser().getEmail());
         return result.get();
     }
 
     @Override
-    public Subscription fetchSubscriptionByEmail(String email) {
-        //todo implement
-        return null;
+    public SubscriptionList fetchSubscriptionByEmail(String email) {
+        log.info(String.format("Searching subscriptions by user email, query: \"%s\"", email));
+        List<Subscription> subscriptions = subscriptionRepository.findByUser_EmailContainingIgnoreCase(email);
+        log.info("Found subscriptions list size: {}", subscriptions.size());
+        return new SubscriptionList(subscriptions.size(), subscriptions);
     }
 
     @Override
-    public List<Subscription> listAllSubscriptions() {
-        return subscriptionRepository.findAll();
+    public SubscriptionList listAllSubscriptions() {
+        List<Subscription> subscriptions = subscriptionRepository.findAll();
+        log.info("Found subscriptions list size: {}", subscriptions.size());
+        return new SubscriptionList(subscriptions.size(), subscriptions);
     }
 }

@@ -1,4 +1,4 @@
-package pl.kzochowski.knowledgeTest.controller;
+package pl.kzochowski.knowledgeTest.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import pl.kzochowski.knowledgeTest.model.CategoryList;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @CrossOrigin

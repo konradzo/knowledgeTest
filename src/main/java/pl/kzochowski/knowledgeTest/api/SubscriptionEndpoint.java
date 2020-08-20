@@ -1,4 +1,4 @@
-package pl.kzochowski.knowledgeTest.controller;
+package pl.kzochowski.knowledgeTest.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.Subscription;
 import pl.kzochowski.knowledgeTest.model.SubscriptionList;
 import pl.kzochowski.knowledgeTest.service.SubscriptionService;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,8 +24,12 @@ public class SubscriptionEndpoint {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     SubscriptionList listSubscriptions() {
-        List<Subscription> subscriptions = subscriptionService.listAllSubscriptions();
-        log.info("Listing subscriptions list, size: {}", subscriptions.size());
-        return new SubscriptionList(subscriptions);
+        return subscriptionService.listAllSubscriptions();
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    SubscriptionList searchSubscriptionsByEmail(@RequestParam String query){
+        return subscriptionService.fetchSubscriptionByEmail(query);
     }
 }
