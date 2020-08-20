@@ -1,8 +1,7 @@
 package pl.kzochowski.knowledgeTest.service;
 
 import pl.kzochowski.knowledgeTest.model.Category;
-
-import java.util.List;
+import pl.kzochowski.knowledgeTest.model.CategoryList;
 
 public interface CategoryService {
 
@@ -14,9 +13,9 @@ public interface CategoryService {
 
     Category removeCategory(String categoryName);
 
-    List<Category> listAllCategories();
+    CategoryList listAllCategories();
 
-    List<Category> searchCategoriesByQuery(String query);
+    CategoryList searchCategoriesByQuery(String query);
 
     class CategoryAlreadyExistsException extends RuntimeException {
         public CategoryAlreadyExistsException(String categoryName) {

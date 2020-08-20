@@ -40,16 +40,12 @@ public class CategoryEndpoint {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     CategoryList listCategories() {
-        List<Category> categories = categoryService.listAllCategories();
-        log.info("Categories list size: {}", categories.size());
-        return new CategoryList(categories);
+        return categoryService.listAllCategories();
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
     CategoryList searchCategoriesByName(@RequestParam String query){
-        List<Category> categories = categoryService.searchCategoriesByQuery(query);
-        log.info("Categories list size: {}", categories.size());
-        return new CategoryList(categories);
+        return categoryService.searchCategoriesByQuery(query);
     }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.kzochowski.knowledgeTest.model.Category;
+import pl.kzochowski.knowledgeTest.model.CategoryList;
 import pl.kzochowski.knowledgeTest.repository.CategoryRepository;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
@@ -53,13 +54,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> listAllCategories() {
-        return categoryRepository.findAll();
+    public CategoryList listAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        log.info("Found categories list size: {}", categories.size());
+        return new CategoryList(categories.size(), categories);
     }
 
     @Override
-    public List<Category> searchCategoriesByQuery(String query) {
-        return categoryRepository.findByNameContainingIgnoreCase(query);
+    public CategoryList searchCategoriesByQuery(String query) {
+        List<Category> categories = categoryRepository.findByNameContainingIgnoreCase(query);
+        log.info("Found categories list size: {}", categories.size());
+        return new CategoryList(categories.size(), categories);
     }
 
     private Category checkCategoryExistence(String categoryName) {
