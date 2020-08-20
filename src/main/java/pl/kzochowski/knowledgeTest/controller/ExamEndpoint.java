@@ -22,6 +22,12 @@ public class ExamEndpoint {
         return examService.addNewExam(json);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    Exam fetchExam(@PathVariable Integer id) {
+        return examService.fetchExamById(id);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     ExamList listExams() {

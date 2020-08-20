@@ -25,7 +25,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Exam addNewExam(NewExamJson json) {
         Optional<Category> category = categoryRepository.findById(json.getCategoryId());
-        if (!category.isPresent()){
+        if (!category.isPresent()) {
             throw new CategoryService.CategoryDoesNotExistException(json.getCategoryId());
         }
 
@@ -39,6 +39,15 @@ public class ExamServiceImpl implements ExamService {
         newExam.setHeader(json.getHeader());
         newExam.setDescription(json.getDescription());
         return examRepository.save(newExam);
+    }
+
+    @Override
+    public Exam fetchExamById(Integer id) {
+        Optional<Exam> exam = examRepository.findById(id);
+        if (!exam.isPresent())
+            throw new ExamDoesNotExistException(id);
+        log.info("Fetched exam: {}", exam.get().getHeader());
+        return exam.get();
     }
 
     @Override
