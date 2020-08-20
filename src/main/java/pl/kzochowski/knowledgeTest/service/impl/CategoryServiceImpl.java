@@ -57,6 +57,11 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
+    @Override
+    public List<Category> searchCategoriesByQuery(String query) {
+        return categoryRepository.findByNameContainingIgnoreCase(query);
+    }
+
     private Category checkCategoryExistence(String categoryName) {
         Optional<Category> tempCategory = categoryRepository.findByName(categoryName);
         if (!tempCategory.isPresent())

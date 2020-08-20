@@ -17,8 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryEndpoint {
-    // todo find by category name - another endpoint?
-
     private final CategoryService categoryService;
 
     @PostMapping
@@ -43,6 +41,14 @@ public class CategoryEndpoint {
     @ResponseStatus(HttpStatus.OK)
     CategoryList listCategories() {
         List<Category> categories = categoryService.listAllCategories();
+        log.info("Categories list size: {}", categories.size());
+        return new CategoryList(categories);
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    CategoryList searchCategoriesByName(@RequestParam String query){
+        List<Category> categories = categoryService.searchCategoriesByQuery(query);
         log.info("Categories list size: {}", categories.size());
         return new CategoryList(categories);
     }

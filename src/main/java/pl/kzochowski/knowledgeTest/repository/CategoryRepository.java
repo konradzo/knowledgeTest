@@ -12,4 +12,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<Category> findAll();
 
     void deleteByName(String categoryName);
+
+    List<Category> findByNameContaining(String query);
+
+    List<Category> findByNameLikeIgnoreCase(String query);
+
+    List<Category> findByNameContainingIgnoreCase(String query);
 }

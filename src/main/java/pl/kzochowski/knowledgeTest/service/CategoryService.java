@@ -16,6 +16,8 @@ public interface CategoryService {
 
     List<Category> listAllCategories();
 
+    List<Category> searchCategoriesByQuery(String query);
+
     class CategoryAlreadyExistsException extends RuntimeException {
         public CategoryAlreadyExistsException(String categoryName) {
             super(String.format("Category with name %s already exists!", categoryName));
