@@ -41,4 +41,10 @@ public class ExamEndpoint {
     Exam update(@PathVariable Integer id, @RequestBody @Valid Exam updatedExam) {
         return examService.updateExam(id, updatedExam);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void remove(@PathVariable Integer id) {
+        examService.removeExam(id);
+    }
 }

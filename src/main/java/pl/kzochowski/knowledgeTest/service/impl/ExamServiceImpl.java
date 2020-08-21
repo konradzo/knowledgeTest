@@ -62,6 +62,16 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public void removeExam(Integer id) {
+        Optional<Exam> exam = examRepository.findById(id);
+        if (!exam.isPresent())
+            throw new ExamDoesNotExistException(id);
+
+        examRepository.deleteById(id);
+        log.info("Exam with id {} removed", id);
+    }
+
+    @Override
     public ExamList listAllExams() {
         List<Exam> exams = examRepository.findAll();
         log.info("Found exam list size: {}", exams.size());

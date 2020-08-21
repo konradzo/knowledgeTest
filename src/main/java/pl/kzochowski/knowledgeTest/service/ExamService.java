@@ -11,6 +11,8 @@ public interface ExamService {
 
     Exam updateExam(Integer id, Exam updatedExam);
 
+    void removeExam(Integer id);
+
     ExamList listAllExams();
 
     class ExamDoesNotExistException extends RuntimeException {
