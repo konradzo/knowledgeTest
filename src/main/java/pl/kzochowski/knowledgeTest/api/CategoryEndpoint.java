@@ -20,31 +20,31 @@ public class CategoryEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Category createCategory(@RequestBody @Valid Category category) {
+    Category create(@RequestBody @Valid Category category) {
         return categoryService.createCategory(category);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Category fetchCategory(@PathVariable Integer id) {
+    Category fetch(@PathVariable Integer id) {
         return categoryService.fetchCategoryById(id);
     }
 
     @DeleteMapping("/{categoryName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    Category removeCategory(@PathVariable("categoryName") String categoryName) {
+    Category remove(@PathVariable("categoryName") String categoryName) {
         return categoryService.removeCategory(categoryName);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    CategoryList listCategories() {
+    CategoryList listAll() {
         return categoryService.listAllCategories();
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    CategoryList searchCategoriesByName(@RequestParam String query){
+    CategoryList searchByName(@RequestParam String query){
         return categoryService.searchCategoriesByQuery(query);
     }
 }

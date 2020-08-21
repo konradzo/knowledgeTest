@@ -1,48 +1,44 @@
 package pl.kzochowski.knowledgeTest.api;
 
-import org.apache.commons.validator.routines.EmailValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.kzochowski.knowledgeTest.model.User;
+import pl.kzochowski.knowledgeTest.model.UserList;
 import pl.kzochowski.knowledgeTest.service.UserService;
-import pl.kzochowski.knowledgeTest.service.UserService.IncorrectEmailException;
 
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserEndpoint {
     //todo find user by email
-    //todo deleting user by email, listing users
+    //todo deleting user by email
     private final UserService userService;
-    private final EmailValidator emailValidator;
-
-    public UserEndpoint(UserService userService) {
-        this.userService = userService;
-        this.emailValidator = EmailValidator.getInstance();
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    User createUser(@Valid @RequestBody User newUser) {
-        if (incorrectEmailAddress(newUser))
-            throw new IncorrectEmailException(newUser);
+    User create(@Valid @RequestBody User newUser) {
+
         return userService.createUser(newUser);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    User fetchUser(@PathVariable("id") Integer id) {
+    User fetch(@PathVariable("id") Integer id) {
         return userService.fetchUserById(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    User removeUser(@PathVariable("id") Integer id) {
+    User remove(@PathVariable("id") Integer id) {
         return userService.removeUserById(id);
     }
 
-    private boolean incorrectEmailAddress(User user) {
-        return !emailValidator.isValid(user.getEmail());
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    UserList listAll(){
+        return userService.listAllUsers();
     }
 }

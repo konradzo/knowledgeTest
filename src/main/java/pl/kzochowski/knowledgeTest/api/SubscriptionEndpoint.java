@@ -17,19 +17,19 @@ public class SubscriptionEndpoint {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Subscription fetchSubscription(@PathVariable Integer id) {
+    Subscription fetch(@PathVariable Integer id) {
         return subscriptionService.fetchSubscriptionById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    SubscriptionList listSubscriptions() {
+    SubscriptionList listAll() {
         return subscriptionService.listAllSubscriptions();
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    SubscriptionList searchSubscriptionsByEmail(@RequestParam String query){
+    SubscriptionList searchByEmail(@RequestParam String query){
         return subscriptionService.fetchSubscriptionByEmail(query);
     }
 }

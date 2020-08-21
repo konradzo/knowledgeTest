@@ -1,6 +1,7 @@
 package pl.kzochowski.knowledgeTest.service;
 
 import pl.kzochowski.knowledgeTest.model.User;
+import pl.kzochowski.knowledgeTest.model.UserList;
 
 public interface UserService {
 
@@ -10,14 +11,9 @@ public interface UserService {
 
     User removeUserById(Integer id);
 
-    class IncorrectEmailException extends IllegalArgumentException {
-        public IncorrectEmailException(User user) {
-            super(String.format("Incorrect email %s for user %s %s", user.getEmail(), user.getName(), user.getSurname()));
-        }
-    }
+    UserList listAllUsers();
 
-    // todo change extended exception?
-    class UserAlreadyExistsException extends IllegalArgumentException {
+    class UserAlreadyExistsException extends RuntimeException {
         public UserAlreadyExistsException(User user) {
             super(String.format("User with email %s already exists!", user.getEmail()));
         }
@@ -26,6 +22,12 @@ public interface UserService {
     class UserDoesNotExistException extends RuntimeException {
         public UserDoesNotExistException(Integer id) {
             super(String.format("User with id %d does not exist!", id));
+        }
+    }
+
+    class IncorrectEmailException extends IllegalArgumentException {
+        public IncorrectEmailException(String email) {
+            super(String.format("Wrong email prodived: %s", email));
         }
     }
 }
