@@ -9,6 +9,8 @@ import pl.kzochowski.knowledgeTest.model.ExamList;
 import pl.kzochowski.knowledgeTest.service.ExamService;
 import pl.kzochowski.knowledgeTest.util.json.NewExamJson;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -18,19 +20,25 @@ public class ExamEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Exam createExam(@RequestBody NewExamJson json) {
+    Exam create(@RequestBody NewExamJson json) {
         return examService.addNewExam(json);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Exam fetchExam(@PathVariable Integer id) {
+    Exam fetch(@PathVariable Integer id) {
         return examService.fetchExamById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    ExamList listExams() {
+    ExamList listAll() {
         return examService.listAllExams();
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    Exam update(@PathVariable Integer id, @RequestBody @Valid Exam updatedExam) {
+        return examService.updateExam(id, updatedExam);
     }
 }

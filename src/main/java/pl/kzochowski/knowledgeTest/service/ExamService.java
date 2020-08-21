@@ -9,6 +9,8 @@ public interface ExamService {
 
     Exam fetchExamById(Integer id);
 
+    Exam updateExam(Integer id, Exam updatedExam);
+
     ExamList listAllExams();
 
     class ExamDoesNotExistException extends RuntimeException {

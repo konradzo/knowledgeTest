@@ -51,6 +51,17 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public Exam updateExam(Integer id, Exam updatedExam) {
+        Optional<Exam> exam = examRepository.findById(id);
+        if (!exam.isPresent())
+            throw new ExamDoesNotExistException(id);
+
+        examRepository.save(updatedExam);
+        log.info("Exam with id {} updated", id);
+        return updatedExam;
+    }
+
+    @Override
     public ExamList listAllExams() {
         List<Exam> exams = examRepository.findAll();
         log.info("Found exam list size: {}", exams.size());
