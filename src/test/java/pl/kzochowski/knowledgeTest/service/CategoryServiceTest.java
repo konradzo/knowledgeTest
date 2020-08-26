@@ -38,7 +38,7 @@ public class CategoryServiceTest {
     private Category tempCategory(){
         Category category = new Category();
         category.setId(1);
-        category.setDescription("Blabl");
+        category.setDescription("Sample category's description");
         category.setName("Some name");
         List<Exam> exams = new ArrayList<>();
         List<ExamApproach> examApproaches = new ArrayList<>();

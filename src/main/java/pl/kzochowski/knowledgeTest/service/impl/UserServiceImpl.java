@@ -20,7 +20,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final MailSenderService mailSenderService;
-    private final EmailValidator emailValidator;
+    private final EmailValidator emailValidator = EmailValidator.getInstance();
 
     @Override
     public User createUser(User user) {
