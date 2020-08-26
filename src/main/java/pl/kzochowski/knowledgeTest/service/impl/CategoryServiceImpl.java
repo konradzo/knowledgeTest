@@ -54,6 +54,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public void removeAllCategories() {
+        categoryRepository.deleteAll();
+        log.info("All categories has been removed!");
+    }
+
+    @Override
     public CategoryList listAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         log.info("Found categories list size: {}", categories.size());

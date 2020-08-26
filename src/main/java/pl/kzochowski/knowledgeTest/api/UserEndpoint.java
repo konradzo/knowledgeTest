@@ -19,26 +19,26 @@ public class UserEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    User create(@Valid @RequestBody User newUser) {
+    public User create(@Valid @RequestBody User newUser) {
 
         return userService.createUser(newUser);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    User fetch(@PathVariable("id") Integer id) {
+    public User fetch(@PathVariable("id") Integer id) {
         return userService.fetchUserById(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    User remove(@PathVariable("id") Integer id) {
+    public User remove(@PathVariable("id") Integer id) {
         return userService.removeUserById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    UserList listAll(){
+    public UserList listAll(){
         return userService.listAllUsers();
     }
 }

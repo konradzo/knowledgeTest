@@ -9,6 +9,7 @@ import pl.kzochowski.knowledgeTest.model.CategoryList;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @CrossOrigin
@@ -20,31 +21,37 @@ public class CategoryEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Category create(@RequestBody @Valid Category category) {
+    public Category create(@RequestBody @Valid Category category) {
         return categoryService.createCategory(category);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Category fetch(@PathVariable Integer id) {
+    public Category fetch(@PathVariable Integer id) {
         return categoryService.fetchCategoryById(id);
     }
 
     @DeleteMapping("/{categoryName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    Category remove(@PathVariable("categoryName") String categoryName) {
+    public Category remove(@PathVariable("categoryName") String categoryName) {
         return categoryService.removeCategory(categoryName);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeAll() {
+        categoryService.removeAllCategories();
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    CategoryList listAll() {
+    public CategoryList listAll() {
         return categoryService.listAllCategories();
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    CategoryList searchByName(@RequestParam String query){
+    public CategoryList searchByName(@RequestParam String query) {
         return categoryService.searchCategoriesByQuery(query);
     }
 }

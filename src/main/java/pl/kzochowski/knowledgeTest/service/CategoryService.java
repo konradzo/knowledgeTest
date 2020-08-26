@@ -13,6 +13,8 @@ public interface CategoryService {
 
     Category removeCategory(String categoryName);
 
+    void removeAllCategories();
+
     CategoryList listAllCategories();
 
     CategoryList searchCategoriesByQuery(String query);

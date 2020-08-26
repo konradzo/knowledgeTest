@@ -20,31 +20,31 @@ public class ExamEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Exam create(@RequestBody NewExamJson json) {
+    public Exam create(@RequestBody NewExamJson json) {
         return examService.addNewExam(json);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Exam fetch(@PathVariable Integer id) {
+    public Exam fetch(@PathVariable Integer id) {
         return examService.fetchExamById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    ExamList listAll() {
+    public ExamList listAll() {
         return examService.listAllExams();
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Exam update(@PathVariable Integer id, @RequestBody @Valid Exam updatedExam) {
+    public Exam update(@PathVariable Integer id, @RequestBody @Valid Exam updatedExam) {
         return examService.updateExam(id, updatedExam);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void remove(@PathVariable Integer id) {
+    public void remove(@PathVariable Integer id) {
         examService.removeExam(id);
     }
 }
