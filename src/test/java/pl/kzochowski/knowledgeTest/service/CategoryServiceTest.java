@@ -1,12 +1,12 @@
 package pl.kzochowski.knowledgeTest.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import pl.kzochowski.knowledgeTest.KnowledgeTestApplication;
 import pl.kzochowski.knowledgeTest.model.Category;
+import pl.kzochowski.knowledgeTest.model.CategoryList;
 import pl.kzochowski.knowledgeTest.model.Exam;
 import pl.kzochowski.knowledgeTest.model.ExamApproach;
 
@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
@@ -27,9 +28,9 @@ public class CategoryServiceTest {
     private CategoryService categoryService;
 
     @Test
-    public void shouldReturnCategoryByName() {
+    public void shouldCreateAndReturnCategoryByName() {
         // given
-        Category category = tempCategory();
+        Category category = aCategory();
 
         // when
         categoryService.createCategory(category);
@@ -48,7 +49,7 @@ public class CategoryServiceTest {
     @Test
     public void shouldReturnCategoryById() {
         // given
-        Category category = tempCategory();
+        Category category = aCategory();
 
         // when
         categoryService.createCategory(category);
@@ -67,7 +68,7 @@ public class CategoryServiceTest {
     @Test
     public void shouldRemovedCategory() {
         // given
-        Category category = tempCategory();
+        Category category = aCategory();
 
         // when
         categoryService.createCategory(category);
@@ -76,14 +77,75 @@ public class CategoryServiceTest {
         // then
         assertThat(category, equalTo(result));
         assertThrows(CategoryService.CategoryDoesNotExistException.class, () -> categoryService.fetchCategoryByName(category.getName()));
-
     }
 
-    private Category tempCategory() {
+    @Test
+    public void shouldListAllCategoriesBeforeAndAfterRemoveAll() {
+        // given
+        Category firstCategory = aCategory();
+        Category secondCategory = bCategory();
+
+        // when
+        categoryService.createCategory(firstCategory);
+        categoryService.createCategory(secondCategory);
+        CategoryList listSizeBeforeRemoveAll = categoryService.listAllCategories();
+
+        categoryService.removeAllCategories();
+        CategoryList listSizeAfterRemoveAll = categoryService.listAllCategories();
+
+        // then
+        assertThat(listSizeBeforeRemoveAll.getCategories(), hasSize(2));
+        assertThat(listSizeAfterRemoveAll.getCategories(), hasSize(0));
+    }
+
+    @Test
+    public void shouldReturnCategoryByQuery() {
+        // given
+        Category firstCategory = aCategory();
+        Category secondCategory = bCategory();
+
+        // when
+        categoryService.createCategory(firstCategory);
+        categoryService.createCategory(secondCategory);
+        CategoryList queryResultList = categoryService.searchCategoriesByQuery("Another");
+
+        // then
+        assertThat(queryResultList.getCategories(), hasSize(1));
+        //assertThat(queryResultList.getCategories().get(0), equalTo(secondCategory));
+    }
+
+    @Test
+    public void shouldReturnEmptyListWhenSearchByQuery(){
+        // given
+        Category firstCategory = aCategory();
+        Category secondCategory = bCategory();
+
+        // when
+        categoryService.createCategory(firstCategory);
+        categoryService.createCategory(secondCategory);
+        CategoryList queryResultList = categoryService.searchCategoriesByQuery("Sport");
+
+        // then
+        assertThat(queryResultList.getCategories(), hasSize(0));
+    }
+
+    private Category aCategory() {
         Category category = new Category();
         category.setId(1);
         category.setDescription("Sample category's description");
-        category.setName("Some name");
+        category.setName("Some category");
+        List<Exam> exams = new ArrayList<>();
+        List<ExamApproach> examApproaches = new ArrayList<>();
+        category.setExamList(exams);
+        category.setExamApproachList(examApproaches);
+        return category;
+    }
+
+    private Category bCategory() {
+        Category category = new Category();
+        category.setId(2);
+        category.setDescription("Sample category's description");
+        category.setName("Another category");
         List<Exam> exams = new ArrayList<>();
         List<ExamApproach> examApproaches = new ArrayList<>();
         category.setExamList(exams);
