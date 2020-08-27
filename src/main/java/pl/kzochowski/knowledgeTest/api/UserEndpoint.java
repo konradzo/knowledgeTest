@@ -13,8 +13,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserEndpoint {
-    //todo find user by email
-    //todo deleting user by email
     private final UserService userService;
 
     @PostMapping
@@ -40,5 +38,11 @@ public class UserEndpoint {
     @ResponseStatus(HttpStatus.OK)
     public UserList listAll(){
         return userService.listAllUsers();
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public UserList searchByEmail(@RequestParam String query){
+        return userService.searchUsersByEmail(query);
     }
 }

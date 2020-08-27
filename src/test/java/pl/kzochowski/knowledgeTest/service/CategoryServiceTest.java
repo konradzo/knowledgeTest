@@ -41,6 +41,16 @@ public class CategoryServiceTest {
     }
 
     @Test
+    public void shouldThrowExceptionWhenCategoryAlreadyExists(){
+        // given
+        Category category = aCategory();
+        categoryService.createCategory(category);
+
+        // then
+        assertThrows(CategoryService.CategoryAlreadyExistsException.class, ()-> categoryService.createCategory(category));
+    }
+
+    @Test
     public void shouldThrownExceptionWhenCategoryNotFoundByName() {
         // then
         assertThrows(CategoryService.CategoryDoesNotExistException.class, () -> categoryService.fetchCategoryByName("Test name"));

@@ -3,6 +3,7 @@ package pl.kzochowski.knowledgeTest.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.kzochowski.knowledgeTest.model.Subscription;
 import pl.kzochowski.knowledgeTest.model.User;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     private final MailSenderService mailSenderService;
     private final EmailValidator emailValidator = EmailValidator.getInstance();
 
+    @Value("${registrationEmail.enable:false}")
+    private  boolean enableSending;
+
     @Override
     public User createUser(User user) {
         validProvidedEmail(user);
@@ -36,7 +40,9 @@ public class UserServiceImpl implements UserService {
         user.setSubscription(subscription);
 
         userRepository.save(user);
-        mailSenderService.sendNewAccountEmail(user.getEmail());
+        if (enableSending)
+            mailSenderService.sendNewAccountEmail(user.getEmail());
+
         log.info("New user created. Email: {}, creation date {}", user.getEmail(), user.getCreateAt());
         return user;
     }
@@ -64,6 +70,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserList listAllUsers() {
         List<User> users = userRepository.findAll();
+        log.info("Found users list size: {}", users.size());
+        return new UserList(users.size(), users);
+    }
+
+    @Override
+    public UserList searchUsersByEmail(String query) {
+        List<User> users = userRepository.findByEmailContainingIgnoreCase(query);
         log.info("Found users list size: {}", users.size());
         return new UserList(users.size(), users);
     }

@@ -13,6 +13,8 @@ public interface UserService {
 
     UserList listAllUsers();
 
+    UserList searchUsersByEmail(String query);
+
     class UserAlreadyExistsException extends RuntimeException {
         public UserAlreadyExistsException(User user) {
             super(String.format("User with email %s already exists!", user.getEmail()));
