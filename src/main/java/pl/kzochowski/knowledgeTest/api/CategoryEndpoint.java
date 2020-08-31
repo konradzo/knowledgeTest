@@ -9,7 +9,6 @@ import pl.kzochowski.knowledgeTest.model.CategoryList;
 import pl.kzochowski.knowledgeTest.service.CategoryService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @CrossOrigin

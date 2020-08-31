@@ -18,7 +18,6 @@ public class UserEndpoint {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@Valid @RequestBody User newUser) {
-
         return userService.createUser(newUser);
     }
 
@@ -36,13 +35,13 @@ public class UserEndpoint {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserList listAll(){
+    public UserList listAll() {
         return userService.listAllUsers();
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
-    public UserList searchByEmail(@RequestParam String query){
+    public UserList searchByEmail(@RequestParam String query) {
         return userService.searchUsersByEmail(query);
     }
 }

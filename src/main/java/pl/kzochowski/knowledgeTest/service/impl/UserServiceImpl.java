@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private final EmailValidator emailValidator = EmailValidator.getInstance();
 
     @Value("${registrationEmail.enable:false}")
-    private  boolean enableSending;
+    private boolean enableSending;
 
     @Override
     public User createUser(User user) {
