@@ -3,6 +3,7 @@ package pl.kzochowski.knowledgeTest.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.kzochowski.knowledgeTest.model.ExamApproachList;
 import pl.kzochowski.knowledgeTest.model.User;
 import pl.kzochowski.knowledgeTest.model.UserList;
 import pl.kzochowski.knowledgeTest.service.UserService;
@@ -31,6 +32,12 @@ public class UserEndpoint {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public User remove(@PathVariable("id") Integer id) {
         return userService.removeUserById(id);
+    }
+
+    @GetMapping("/{id}/exams-approaches")
+    @ResponseStatus(HttpStatus.OK)
+    public ExamApproachList listUserExamApproaches(@PathVariable Integer id){
+        return userService.listExamApproaches(id);
     }
 
     @GetMapping

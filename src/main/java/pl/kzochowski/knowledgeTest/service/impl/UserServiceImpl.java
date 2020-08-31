@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import pl.kzochowski.knowledgeTest.model.Subscription;
-import pl.kzochowski.knowledgeTest.model.User;
-import pl.kzochowski.knowledgeTest.model.UserList;
+import pl.kzochowski.knowledgeTest.model.*;
+import pl.kzochowski.knowledgeTest.repository.ExamApproachRepository;
 import pl.kzochowski.knowledgeTest.repository.UserRepository;
 import pl.kzochowski.knowledgeTest.service.UserService;
 
@@ -20,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final ExamApproachRepository examApproachRepository;
     private final MailSenderService mailSenderService;
     private final EmailValidator emailValidator = EmailValidator.getInstance();
 
@@ -79,6 +79,13 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findByEmailContainingIgnoreCase(query);
         log.info("Found users list size: {}", users.size());
         return new UserList(users.size(), users);
+    }
+
+    @Override
+    public ExamApproachList listExamApproaches(Integer id) {
+        List<ExamApproach> examApproaches = examApproachRepository.findAllByUser_Id(id);
+        log.info("Found exam approaches list size: {}, user id: {}", examApproaches.size(), id);
+        return new ExamApproachList(examApproaches.size(), examApproaches);
     }
 
     private boolean checkIfUserAlreadyExists(String email) {

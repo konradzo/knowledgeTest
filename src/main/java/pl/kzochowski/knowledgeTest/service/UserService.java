@@ -1,5 +1,6 @@
 package pl.kzochowski.knowledgeTest.service;
 
+import pl.kzochowski.knowledgeTest.model.ExamApproachList;
 import pl.kzochowski.knowledgeTest.model.User;
 import pl.kzochowski.knowledgeTest.model.UserList;
 
@@ -14,6 +15,8 @@ public interface UserService {
     UserList listAllUsers();
 
     UserList searchUsersByEmail(String query);
+
+    ExamApproachList listExamApproaches(Integer id);
 
     class UserAlreadyExistsException extends RuntimeException {
         public UserAlreadyExistsException(User user) {
